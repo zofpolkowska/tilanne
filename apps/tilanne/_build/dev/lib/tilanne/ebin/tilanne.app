@@ -1,0 +1,11 @@
+{application,tilanne,
+             [{applications,[kernel,stdlib,elixir,logger,erlport,plug]},
+              {description,"tilanne"},
+              {modules,['Elixir.Tilanne','Elixir.Tilanne.Collection.Child',
+                        'Elixir.Tilanne.Collection.Image',
+                        'Elixir.Tilanne.Collection.Supervisor',
+                        'Elixir.Tilanne.Python','Elixir.Tilanne.Supervisor']},
+              {registered,[]},
+              {vsn,"0.1.0"},
+              {extra_applications,[logger]},
+              {mod,{'Elixir.Tilanne',[]}}]}.
