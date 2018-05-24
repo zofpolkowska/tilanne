@@ -19,4 +19,8 @@ defmodule Tilanne.Supervisor do
   defp collection(path) do
     Supervisor.child_spec({Collection, path}, id: path)
   end
+
+  def collections() do
+
+  end
 end
