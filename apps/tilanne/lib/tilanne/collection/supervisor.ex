@@ -2,10 +2,10 @@ defmodule Tilanne.Collection.Supervisor do
   use Supervisor
   alias Tilanne.Collection.Child, as: Child
 
-  def start_link(path) do
-    p = String.to_atom(path)
+  def start_link([path, id]) do
+    #p = String.to_atom(path)
     {:ok, pid} = Supervisor.start_link(__MODULE__, path)
-    Process.register(pid, p)
+    Process.register(pid, id)
     {:ok, pid}
   end
 
@@ -28,14 +28,17 @@ defmodule Tilanne.Collection.Supervisor do
 
   def people?(path) do
     call(path, :people?)
+    |> Enum.filter(&is_binary/1)
   end
 
   def face?(path, model) do
     call(path, {:face?, model})
+    |> Enum.filter(&is_binary/1)
   end
 
   def find?(path, model) do
     call(path, {:find?, model})
+    |> Enum.filter(&is_binary/1)
   end
 
   def info(path) do
@@ -54,7 +57,7 @@ defmodule Tilanne.Collection.Supervisor do
 
   def children(path) do
     path
-    |> String.to_atom
+    #|> String.to_atom
     |> Supervisor.which_children
     |> Enum.map(fn e ->
       elem(e, 0) end)

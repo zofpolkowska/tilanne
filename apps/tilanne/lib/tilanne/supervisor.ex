@@ -12,15 +12,16 @@ defmodule Tilanne.Supervisor do
     Supervisor.init([], strategy: :one_for_one)
   end
 
-  def load(path) do
-    Supervisor.start_child(:main, collection(path))
+  def load(path, id) do
+    Supervisor.start_child(:main, collection(path, id))
   end
 
-  defp collection(path) do
-    Supervisor.child_spec({Collection, path}, id: path)
+  defp collection(path, id) do
+    Supervisor.child_spec({Collection, [path, id]}, id: id)
   end
 
-  def collections() do
-
+  def paths() do
+    Supervisor.which_children(:main)
+    |> Enum.map(fn({path,_,_,_}) -> path end)
   end
 end

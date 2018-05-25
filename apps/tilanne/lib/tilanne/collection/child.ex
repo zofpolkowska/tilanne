@@ -24,37 +24,27 @@ defmodule Tilanne.Collection.Child do
 
   def handle_call(:overexposed?, _from, i) do
     reply = Tilanne.Python.call(i.python, :lib, :overexposed, [i.path, self()])
-    case reply do
-      1 ->
-        {:reply, i.path, i}
-      0 ->
-        {:reply, :nil, i}
-    end
+    filter_reply(reply, i)
   end
 
   def handle_call(:blurry?, _from, i) do
     reply = Tilanne.Python.call(i.python, :lib, :blurry, [i.path, self()])
-    case reply do
-      1 ->
-        {:reply, i.path, i}
-      0 ->
-        {:reply, :nil, i}
-    end
+    filter_reply(reply, i)
   end
 
   def handle_call(:people?, _from, i) do
     reply = Tilanne.Python.call(i.python, :lib, :people, [i.path, self()])
-    {:reply, reply, i}
+    filter_reply(reply, i)
   end
 
   def handle_call({:face?, model}, _from, i) do
     reply = Tilanne.Python.call(i.python, :lib, :face, [i.path, self(), model])
-    {:reply, reply, i}
+    filter_reply(reply, i)
   end
 
   def handle_call({:find?, model}, _from, i) do
     reply = Tilanne.Python.call(i.python, :lib, :find, [i.path, self(), model])
-    {:reply, reply, i}
+    filter_reply(reply, i)
   end
 
   def handle_info(:overexposed!, i) do
@@ -67,8 +57,7 @@ defmodule Tilanne.Collection.Child do
     {:noreply, j}
   end
 
-  def handle_info(msg, i) do
-    IO.puts(msg)
+  def handle_info(_msg, i) do
     {:noreply, i}
   end
 
@@ -83,8 +72,16 @@ defmodule Tilanne.Collection.Child do
     %Image{
       name: Path.basename(path),
       path: path,
-      python: Tilanne.Python.instance(:default),
-      overexposed: :false
+      python: Tilanne.Python.instance(:default)
     }
+  end
+
+  defp filter_reply(reply, i) do
+    case reply do
+      1 ->
+        {:reply, i.path, i}
+      0 ->
+        {:reply, :nil, i}
+    end 
   end
 end

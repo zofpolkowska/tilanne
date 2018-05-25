@@ -13,5 +13,6 @@ defmodule TilanneApi.Router do
     pipe_through :api
     get "/", WelcomeController, :index
     resources "/collections", CollectionController
+    get "/collections/:id/:selection", CollectionController, :selection
   end
 end

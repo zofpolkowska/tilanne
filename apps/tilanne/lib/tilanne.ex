@@ -16,7 +16,9 @@ defmodule Tilanne do
     Tilanne.Supervisor.start_link()
   end
 
-  defdelegate load(path), to: Tilanne.Supervisor, as: :load
+  defdelegate collections(), to: Tilanne.Supervisor, as: :paths
+  defdelegate images(path), to: Tilanne.Collection.Supervisor, as: :children
+  defdelegate load(path, id), to: Tilanne.Supervisor, as: :load
   defdelegate overexposed?(path), to: Tilanne.Collection.Supervisor, as: :overexposed?
   defdelegate info(path), to: Tilanne.Collection.Supervisor, as: :info
   defdelegate blurry?(path), to: Tilanne.Collection.Supervisor, as: :blurry?

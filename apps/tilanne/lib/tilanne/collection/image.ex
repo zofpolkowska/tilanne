@@ -3,7 +3,7 @@ defmodule Tilanne.Collection.Image do
     name: "",
     path: "",
     python: :nil,
-    overexposed: :false, 
-    blurry: :false ]
+    overexposed: :undefined, 
+    blurry: :undefined ]
 end
 
