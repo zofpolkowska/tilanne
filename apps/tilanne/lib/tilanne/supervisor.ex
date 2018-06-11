@@ -12,27 +12,16 @@ defmodule Tilanne.Supervisor do
     Supervisor.init([], strategy: :one_for_one)
   end
 
-  def load(path, id) do
-    p = String.to_atom(path)
-    cond do
-      Enum.member?(paths(), p) == false ->
-        Supervisor.start_child(:main, collection(path, id))
-      true ->
-        :exists
-    end
+  def load(path \\ "../../data", id \\ :default) do
+    Supervisor.start_child(:main, collection(path, id))
   end
 
   defp collection(path, id) do
-    p = String.to_atom(path)
-    Supervisor.child_spec({Collection, [path, id]}, id: p)
+    Supervisor.child_spec({Collection, [path, id]}, id: id)
   end
 
   def paths() do
     Supervisor.which_children(:main)
     |> Enum.map(fn({path,_,_,_}) -> path end)
-  end
-
-  def delete(path) do
-    Supervisor.delete_child(__MODULE__, path)
   end
 end

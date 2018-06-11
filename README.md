@@ -26,7 +26,7 @@ Name comes from Finnish and its meaning is  picture, situation, position, things
 	"id": id
 }
 ```
-
+If you do not pass the body parameters, the request will not fail. Images from data directory from the project directory will be loaded. The generated id will be "default".
 
 - Response (application/json)
 ```json
