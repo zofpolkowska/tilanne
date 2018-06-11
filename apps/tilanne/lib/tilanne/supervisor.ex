@@ -12,7 +12,7 @@ defmodule Tilanne.Supervisor do
     Supervisor.init([], strategy: :one_for_one)
   end
 
-  def load(path, id) do
+  def load(path \\ "../../data", id \\ :default) do
     Supervisor.start_child(:main, collection(path, id))
   end
 

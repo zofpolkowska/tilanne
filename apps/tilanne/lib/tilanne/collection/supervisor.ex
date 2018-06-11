@@ -17,46 +17,46 @@ defmodule Tilanne.Collection.Supervisor do
     Supervisor.init(children, strategy: :one_for_one)
   end
 
-  def overexposed?(path) do
-    call(path, :overexposed?)
+  def overexposed?(id \\ :default) do
+    call(id, :overexposed?)
     |> Enum.filter(&is_binary/1)
   end
-  def blurry?(path) do
-    call(path, :blurry?)
-    |> Enum.filter(&is_binary/1)
-  end
-
-  def people?(path) do
-    call(path, :people?)
+  def blurry?(id \\ :default) do
+    call(id, :blurry?)
     |> Enum.filter(&is_binary/1)
   end
 
-  def face?(path, model) do
-    call(path, {:face?, model})
+  def people?(id \\ :default) do
+    call(id, :people?)
     |> Enum.filter(&is_binary/1)
   end
 
-  def find?(path, model) do
-    call(path, {:find?, model})
+  def face?(model, id \\ :default) do
+    call(id, {:face?, model})
     |> Enum.filter(&is_binary/1)
   end
 
-  def info(path) do
-    call(path, :info)
+  def find?(model, id \\ :default) do
+    call(id, {:find?, model})
+    |> Enum.filter(&is_binary/1)
   end
 
-  def call(path, request) do
-    children(path)
+  def info(id \\ :default) do
+    call(id, :info)
+  end
+
+  def call(id, request) do
+    children(id)
     |> Enum.map(fn i -> GenServer.call(i, request) end)
   end
 
-  def cast(path, request) do
-    children(path)
+  def cast(id, request) do
+    children(id)
     |> Enum.map(fn i -> GenServer.cast(i, request) end)
   end
 
-  def children(path) do
-    path
+  def children(id) do
+    id
     #|> String.to_atom
     |> Supervisor.which_children
     |> Enum.map(fn e ->
@@ -65,4 +65,3 @@ defmodule Tilanne.Collection.Supervisor do
 
 
 end
-

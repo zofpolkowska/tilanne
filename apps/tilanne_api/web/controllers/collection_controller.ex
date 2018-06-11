@@ -16,16 +16,21 @@ defmodule TilanneApi.CollectionController do
     render conn, "create.json", %{id: id, path: path}
   end
 
+  def create(conn, _params) do
+    {:ok, _pid} = Tilanne.load
+    render conn, "create.json", %{id: "default", path: "default"}
+  end
+
   def selection(conn, %{"id" => id, "selection" => selection}) do
-    _id = String.to_atom(id)
-    _selection = String.to_atom(selection)
-    case _selection do
+    a = String.to_atom(id)
+    s = String.to_atom(selection)
+    images = case s do
       :overexposed ->
-        images = Tilanne.overexposed?(_id)
+        Tilanne.overexposed?(a)
       :blurry ->
-        images = Tilanne.blurry?(_id)
+        Tilanne.blurry?(a)
       :people ->
-        images = Tilanne.people?(_id)
+        Tilanne.people?(a)
     end
     render conn, "selection.json", %{id: id, selection: selection, images: images}
   end

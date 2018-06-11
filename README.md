@@ -12,10 +12,10 @@ Name comes from Finnish and its meaning is  picture, situation, position, things
 
 #### GET /collections
 - Response (application/json)
-```json 
+```
 {
     "collections": [collections]
-}```
+ ```   
 
   
 #### POST /collections
@@ -24,8 +24,9 @@ Name comes from Finnish and its meaning is  picture, situation, position, things
 {
 	"path": path,
 	"id": id
-}```
-
+}
+```
+If you do not pass the body parameters, the request will not fail. Images from data directory from the project directory will be loaded. The generated id will be "default".
 
 - Response (application/json)
 ```json
@@ -33,7 +34,8 @@ Name comes from Finnish and its meaning is  picture, situation, position, things
     "path": path,
     "id": id,
     "description": "creating collection ..."
-}```
+}
+```
 
   
 #### GET /collections/:id
@@ -42,7 +44,8 @@ Name comes from Finnish and its meaning is  picture, situation, position, things
 {
     "images": [images],
     "collection": "id"
-}```
+}
+```
 
 #### GET /collections/:id/:selection
 - Response (application/json)
@@ -51,7 +54,12 @@ Name comes from Finnish and its meaning is  picture, situation, position, things
     "selection": selection,
     "results": [results],
     "from": id
+<<<<<<< HEAD
 }```
+=======
+}
+```
+>>>>>>> tmp
 
 
 
