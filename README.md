@@ -12,10 +12,10 @@ Name comes from Finnish and its meaning is  picture, situation, position, things
 
 #### GET /collections
 - Response (application/json)
-```json 
+```
 {
     "collections": [collections]
-}```
+ ```   
 
   
 #### POST /collections
@@ -24,7 +24,8 @@ Name comes from Finnish and its meaning is  picture, situation, position, things
 {
 	"path": path,
 	"id": id
-}```
+}
+```
 
 
 - Response (application/json)
@@ -33,7 +34,8 @@ Name comes from Finnish and its meaning is  picture, situation, position, things
     "path": path,
     "id": id,
     "description": "creating collection ..."
-}```
+}
+```
 
   
 #### GET /collections/:id
@@ -42,15 +44,18 @@ Name comes from Finnish and its meaning is  picture, situation, position, things
 {
     "images": [images],
     "collection": "id"
-}```
+}
+```
 
 #### GET /collections/:id/:selection
 - Response (application/json)
+```json
 {
     "selection": selection,
     "results": [results],
     "from": id
 }
+```
 
 
 

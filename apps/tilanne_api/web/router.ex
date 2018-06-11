@@ -2,6 +2,7 @@ defmodule TilanneApi.Router do
   use TilanneApi.Web, :router
 
   pipeline :api do
+    plug CORSPlug, [origin: "http://localhost:4000"]
     plug :accepts, ["json"]
   end
 

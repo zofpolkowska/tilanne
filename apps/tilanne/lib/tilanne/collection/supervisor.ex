@@ -3,9 +3,9 @@ defmodule Tilanne.Collection.Supervisor do
   alias Tilanne.Collection.Child, as: Child
 
   def start_link([path, id]) do
-    #p = String.to_atom(path)
+    p = String.to_atom(path)
     {:ok, pid} = Supervisor.start_link(__MODULE__, path)
-    Process.register(pid, id)
+    Process.register(pid, p)
     {:ok, pid}
   end
 

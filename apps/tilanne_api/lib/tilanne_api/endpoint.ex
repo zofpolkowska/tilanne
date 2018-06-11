@@ -36,5 +36,6 @@ defmodule TilanneApi.Endpoint do
     key: "_tilanne_api_key",
     signing_salt: "/14QwkN0"
 
+  plug CORSPlug
   plug TilanneApi.Router
 end
