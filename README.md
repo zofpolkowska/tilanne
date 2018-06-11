@@ -46,11 +46,12 @@ Name comes from Finnish and its meaning is  picture, situation, position, things
 
 #### GET /collections/:id/:selection
 - Response (application/json)
+```json
 {
     "selection": selection,
     "results": [results],
     "from": id
-}
+}```
 
 
 
