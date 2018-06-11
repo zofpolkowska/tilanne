@@ -19,11 +19,11 @@ Name comes from Finnish and its meaning is  picture, situation, position, things
 
   
 #### POST /collections
-- Request (application/json)
+- Request (application/json)y
 ```json
 {
-	"path": path,
-	"id": id
+	"path": "path",
+	"id": "id"
 }
 ```
 If you do not pass the body parameters, the request will not fail. Images from data directory from the project directory will be loaded. The generated id will be "default".
@@ -31,8 +31,8 @@ If you do not pass the body parameters, the request will not fail. Images from d
 - Response (application/json)
 ```json
 {
-    "path": path,
-    "id": id,
+	"path": "path",
+	"id": "id",
     "description": "creating collection ..."
 }
 ```
@@ -51,15 +51,11 @@ If you do not pass the body parameters, the request will not fail. Images from d
 - Response (application/json)
 ```json
 {
-    "selection": selection,
+    "selection": "selection",
     "results": [results],
-    "from": id
-<<<<<<< HEAD
-}```
-=======
+    "from": "id"
 }
 ```
->>>>>>> tmp
 
 
 
