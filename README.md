@@ -15,7 +15,7 @@ Name comes from Finnish and its meaning is  picture, situation, position, things
 ```
 {
     "collections": [collections]
- ```   
+ }``` 
 
   
 #### POST /collections
