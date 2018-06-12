@@ -12,10 +12,12 @@ Name comes from Finnish and its meaning is  picture, situation, position, things
 
 #### GET /collections
 - Response (application/json)
-```
+```json
 {
-    "collections": [collections]
- }``` 
+	"collections": [collections]
+}
+```
+
 
   
 #### POST /collections
