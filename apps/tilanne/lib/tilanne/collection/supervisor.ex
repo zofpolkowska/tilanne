@@ -17,6 +17,9 @@ defmodule Tilanne.Collection.Supervisor do
     Supervisor.init(children, strategy: :one_for_one)
   end
 
+#  def update do
+#  end
+
   def overexposed?(id \\ :default) do
     call(id, :overexposed?)
     |> Enum.filter(&is_binary/1)
@@ -36,7 +39,8 @@ defmodule Tilanne.Collection.Supervisor do
     |> Enum.filter(&is_binary/1)
   end
 
-  def find?(model, id \\ :default) do
+  def find?(model_name, id \\ :default) do
+    model = GenServer.call(model_name, :path)
     call(id, {:find?, model})
     |> Enum.filter(&is_binary/1)
   end

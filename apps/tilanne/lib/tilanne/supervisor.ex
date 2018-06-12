@@ -12,7 +12,17 @@ defmodule Tilanne.Supervisor do
     Supervisor.init([], strategy: :one_for_one)
   end
 
-  def load(path \\ "../../data", id \\ :default) do
+  def load do
+    path = Application.get_env(:Tilanne, :data)
+    Supervisor.start_child(:main, collection(path, :default))
+  end
+
+  def models do
+    path = Application.get_env(:Tilanne, :models)
+    Supervisor.start_child(:main, collection(path, :models))
+  end
+
+  def load(path, id) do
     Supervisor.start_child(:main, collection(path, id))
   end
 

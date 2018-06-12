@@ -13,10 +13,17 @@ defmodule Tilanne do
 
   """
   def start(_type, _args) do
+    base = File.cwd!
+    Application.put_env(:Tilanne, :project, Path.expand("../..", base))
+    Application.put_env(:Tilanne, :data, Path.expand("../../data", base))
+    Application.put_env(:Tilanne, :models, Path.expand("../../models", base))
+    Application.put_env(:Tilanne, :solution, Path.expand("../../solution", base))
+
     Tilanne.Supervisor.start_link()
   end
 
   defdelegate load, to: Tilanne.Supervisor, as: :load
+  defdelegate models, to: Tilanne.Supervisor, as: :models
   defdelegate images, to: Tilanne.Supervisor, as: :paths
   defdelegate overexposed?, to: Tilanne.Collection.Supervisor, as: :overexposed?
   defdelegate info, to: Tilanne.Collection.Supervisor, as: :info

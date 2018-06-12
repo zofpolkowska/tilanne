@@ -16,6 +16,11 @@ defmodule TilanneApi.CollectionController do
     render conn, "create.json", %{id: id, path: path}
   end
 
+  def create(conn, %{"id" => "models"}) do
+    {:ok, _pid} = Tilanne.models
+    render conn, "create.json", %{id: "models", path: "models"}
+  end
+
   def create(conn, _params) do
     {:ok, _pid} = Tilanne.load
     render conn, "create.json", %{id: "default", path: "default"}
@@ -33,6 +38,14 @@ defmodule TilanneApi.CollectionController do
         Tilanne.people?(a)
     end
     render conn, "selection.json", %{id: id, selection: selection, images: images}
+  end
+
+  def patterns(conn, %{"id" => id, "model" => model}) do
+    i = String.to_atom(id)
+    m = String.to_atom(model)
+
+    images = Tilanne.find?(m, i)
+    render conn, "selection.json", %{id: id, selection: model, images: images}
   end
 
 end

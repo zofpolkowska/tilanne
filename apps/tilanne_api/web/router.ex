@@ -15,5 +15,7 @@ defmodule TilanneApi.Router do
     get "/", WelcomeController, :index
     resources "/collections", CollectionController
     get "/collections/:id/:selection", CollectionController, :selection
+    post "/collections/patterns", CollectionController, :patterns
   end
 end
+ 
