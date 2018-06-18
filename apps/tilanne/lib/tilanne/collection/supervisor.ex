@@ -10,7 +10,7 @@ defmodule Tilanne.Collection.Supervisor do
   end
 
   def init(path) do
-    children = Path.join(path,"/*")
+    children = Path.join(path,"/*.{jpg,jpeg,png}")
     |> Path.wildcard
     |> Enum.map(&Child.child_spec/1)
 
@@ -59,12 +59,26 @@ defmodule Tilanne.Collection.Supervisor do
     |> Enum.map(fn i -> GenServer.cast(i, request) end)
   end
 
-  def children(id) do
+  def children(id \\ :default) do
     id
     #|> String.to_atom
     |> Supervisor.which_children
     |> Enum.map(fn e ->
       elem(e, 0) end)
+  end
+
+  def cleanup do
+    path = Application.get_env(:Tilanne, :solution)
+    children = Path.join(path,"/*.{jpg,jpeg,png}")
+    |> Path.wildcard
+    |> Enum.map(&File.rm/1)
+  end
+
+  def solution do
+    path = Application.get_env(:Tilanne, :solution)
+    children = Path.join(path,"/*.{jpg,jpeg,png}")
+    |> Path.wildcard
+    |> Enum.map(&Path.basename/1)
   end
 
 

@@ -24,13 +24,15 @@ defmodule Tilanne do
 
   defdelegate load, to: Tilanne.Supervisor, as: :load
   defdelegate models, to: Tilanne.Supervisor, as: :models
-  defdelegate images, to: Tilanne.Supervisor, as: :paths
+  defdelegate images, to: Tilanne.Collection.Supervisor, as: :children
   defdelegate overexposed?, to: Tilanne.Collection.Supervisor, as: :overexposed?
   defdelegate info, to: Tilanne.Collection.Supervisor, as: :info
   defdelegate blurry?, to: Tilanne.Collection.Supervisor, as: :blurry?
   defdelegate people?, to: Tilanne.Collection.Supervisor, as: :people?
   defdelegate face?(model), to: Tilanne.Collection.Supervisor, as: :face?
   defdelegate find?(model), to: Tilanne.Collection.Supervisor, as: :find?
+  defdelegate solution, to: Tilanne.Collection.Supervisor, as: :solution
+  defdelegate cleanup, to: Tilanne.Collection.Supervisor, as: :cleanup
 
 
 

@@ -14,9 +14,9 @@ defmodule TilanneApi.CollectionView do
     }
   end
 
-  def render("create.json",  %{id: id, path: path}) do
+  def render("create.json",  %{id: id, path: path, result: result}) do
     %{
-      description: "creating collection ...",
+      description: result,
       id: id,
       path: path
     }

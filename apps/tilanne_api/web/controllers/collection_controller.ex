@@ -3,7 +3,8 @@ defmodule TilanneApi.CollectionController do
 
   def index(conn, _param) do
     collections = Tilanne.collections()
-    render conn, "index.json", %{collections: collections}
+    count = Enum.count(collections)
+    render conn, "index.json", %{collections: count}
   end
 
   def show(conn, %{"id" => id}) do
@@ -12,18 +13,18 @@ defmodule TilanneApi.CollectionController do
   end
 
   def create(conn, %{"path" => path, "id" => id}) do
-    {:ok, _pid} = Tilanne.load(path, String.to_atom(id))
-    render conn, "create.json", %{id: id, path: path}
+    result = Tilanne.load(path, String.to_atom(id))
+    render conn, "create.json", %{id: id, path: path, result: result}
   end
 
   def create(conn, %{"id" => "models"}) do
-    {:ok, _pid} = Tilanne.models
-    render conn, "create.json", %{id: "models", path: "models"}
+    result = Tilanne.models
+    render conn, "create.json", %{id: "models", path: "models", result: result}
   end
 
   def create(conn, _params) do
-    {:ok, _pid} = Tilanne.load
-    render conn, "create.json", %{id: "default", path: "default"}
+    result = Tilanne.load
+    render conn, "create.json", %{id: "default", path: "default", result: result}
   end
 
   def selection(conn, %{"id" => id, "selection" => selection}) do
@@ -36,8 +37,9 @@ defmodule TilanneApi.CollectionController do
         Tilanne.blurry?(a)
       :people ->
         Tilanne.people?(a)
-    end
-    render conn, "selection.json", %{id: id, selection: selection, images: images}
+             end
+    count = Enum.count(images)
+    render conn, "selection.json", %{id: id, selection: selection, images: count}
   end
 
   def patterns(conn, %{"id" => id, "model" => model}) do

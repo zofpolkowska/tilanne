@@ -14,16 +14,34 @@ defmodule Tilanne.Supervisor do
 
   def load do
     path = Application.get_env(:Tilanne, :data)
-    Supervisor.start_child(:main, collection(path, :default))
+    case Supervisor.start_child(:main, collection(path, :default)) do
+      {:ok, _} -> "success"
+      {:error, reason} -> case reason do
+                            {r, _} -> Atom.to_string(r)
+                            _ -> "failed to start the process"
+                          end
+    end
   end
 
   def models do
     path = Application.get_env(:Tilanne, :models)
-    Supervisor.start_child(:main, collection(path, :models))
+    case Supervisor.start_child(:main, collection(path, :models)) do
+      {:ok, _} -> "success"
+      {:error, reason} -> case reason do
+                            {r, _} -> Atom.to_string(r)
+                            _ -> "failed to start the process"
+                          end
+    end
   end
 
   def load(path, id) do
-    Supervisor.start_child(:main, collection(path, id))
+    case Supervisor.start_child(:main, collection(path, id)) do
+      {:ok, _} -> "success"
+      {:error, reason} -> case reason do
+                            {r, _} -> Atom.to_string(r)
+                            _ -> "failed to start the process"
+                          end
+    end
   end
 
   defp collection(path, id) do
