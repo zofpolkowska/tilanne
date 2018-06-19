@@ -7,8 +7,18 @@ defmodule TilanneApi.CollectionController do
     render conn, "index.json", %{collections: count}
   end
 
+  def delete(conn, %{"id" => id}) do
+    case Tilanne.cleanup(id) do
+      _ -> :ok
+    end
+    render conn, "delete.json", %{id: id}
+  end
+
   def show(conn, %{"id" => id}) do
-    images = Tilanne.images(String.to_atom(id))
+    images = case id do
+               "solution" -> Tilanne.solution
+               _ -> Tilanne.images(String.to_atom(id))
+             end
     render conn, "show.json", %{id: id, images: images}
   end
 
@@ -20,6 +30,12 @@ defmodule TilanneApi.CollectionController do
   def create(conn, %{"id" => "models"}) do
     result = Tilanne.models
     render conn, "create.json", %{id: "models", path: "models", result: result}
+  end
+
+  def create(conn, %{"id" => id, "image" => image}) do
+    dd = String.to_atom(id)
+    {r, path} = Tilanne.update(image, dd)
+    render conn, "create.json", %{id: id, path: path, result: r}
   end
 
   def create(conn, _params) do

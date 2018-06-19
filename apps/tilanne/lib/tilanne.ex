@@ -33,7 +33,8 @@ defmodule Tilanne do
   defdelegate find?(model), to: Tilanne.Collection.Supervisor, as: :find?
   defdelegate solution, to: Tilanne.Collection.Supervisor, as: :solution
   defdelegate cleanup, to: Tilanne.Collection.Supervisor, as: :cleanup
-
+  defdelegate cleanup(id), to: Tilanne.Collection.Supervisor, as: :cleanup
+  defdelegate update(image), to: Tilanne.Supervisor, as: :update
 
 
   defdelegate collections(), to: Tilanne.Supervisor, as: :paths
@@ -45,4 +46,5 @@ defmodule Tilanne do
   defdelegate people?(path), to: Tilanne.Collection.Supervisor, as: :people?
   defdelegate face?(model, path), to: Tilanne.Collection.Supervisor, as: :face?
   defdelegate find?(model, path), to: Tilanne.Collection.Supervisor, as: :find?
+  defdelegate update(image, id), to: Tilanne.Supervisor, as: :update
 end

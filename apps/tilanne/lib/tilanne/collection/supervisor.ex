@@ -17,9 +17,6 @@ defmodule Tilanne.Collection.Supervisor do
     Supervisor.init(children, strategy: :one_for_one)
   end
 
-#  def update do
-#  end
-
   def overexposed?(id \\ :default) do
     call(id, :overexposed?)
     |> Enum.filter(&is_binary/1)
@@ -67,8 +64,8 @@ defmodule Tilanne.Collection.Supervisor do
       elem(e, 0) end)
   end
 
-  def cleanup do
-    path = Application.get_env(:Tilanne, :solution)
+  def cleanup(dir \\ :solution) do
+    path = Application.get_env(:Tilanne, dir)
     children = Path.join(path,"/*.{jpg,jpeg,png}")
     |> Path.wildcard
     |> Enum.map(&File.rm/1)

@@ -48,7 +48,7 @@ defmodule Tilanne.Collection.Child do
   end
 
   def handle_call({:find?, model}, _from, i) do
-    reply = Tilanne.Python.call(i.python, :lib, :find, [i.path, i.sol, model])
+    reply = Tilanne.Python.call(i.python, :matcher, :findTemplate, [i.path, model, i.sol])
     filter_reply(reply, i)
   end
 
@@ -95,6 +95,8 @@ defmodule Tilanne.Collection.Child do
         {:reply, i.name, i}
       0 ->
         {:reply, :nil, i}
-    end 
+      other ->
+        {:reply, other, i}
+    end
   end
 end

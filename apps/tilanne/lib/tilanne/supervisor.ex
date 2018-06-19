@@ -23,6 +23,27 @@ defmodule Tilanne.Supervisor do
     end
   end
 
+  def update(name, id \\ :default) do
+    case id do
+             :default ->
+               dir = Application.get_env(:Tilanne, :data)
+               path = Path.join(dir, name)
+               case Supervisor.start_child(id, Tilanne.Collection.Child.child_spec(path)) do
+                 {:ok, pid} -> {"success", path}
+                 _ -> {"failed to load", path}
+               end
+             :models ->
+               dir = Application.get_env(:Tilanne, :models)
+               path = Path.join(dir, name)
+               case Supervisor.start_child(id, Tilanne.Collection.Child.child_spec(path)) do
+                 {:ok, pid} -> {"success", path}
+                 _ -> {"failed to load", path}
+               end
+             _ ->
+               {"failed to load", "path not determined"}
+    end
+  end
+
   def models do
     path = Application.get_env(:Tilanne, :models)
     case Supervisor.start_child(:main, collection(path, :models)) do

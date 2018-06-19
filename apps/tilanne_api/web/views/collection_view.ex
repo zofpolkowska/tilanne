@@ -7,6 +7,12 @@ defmodule TilanneApi.CollectionView do
     }
   end
 
+  def render("delete.json",%{id: id}) do
+    %{
+      collection: id
+    }
+  end
+
   def render("show.json",%{id: id, images: images}) do
     %{
       collection: id,
@@ -29,4 +35,6 @@ defmodule TilanneApi.CollectionView do
       results: images
     }
   end
+
+
 end
